@@ -148,7 +148,7 @@
 
 					// GLB Model Loader
 					const loader = new THREE.GLTFLoader();
-					loader.load('assets/HandWJoint.glb', function (gltf) {
+					loader.load('/Robotics-Website/assets/HandWJoint.glb', function (gltf) {
 						scene.add(gltf.scene);
 						gltf.scene.rotation.y = Math.PI; // Rotate model if needed
 					}, undefined, function (error) {
