@@ -6,8 +6,8 @@
 -->
 <html>
 	<head>
-		<title>Robotic hand website</title>
 		<meta charset="utf-8" />
+		<title>Robotic hand website</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<style>
@@ -118,7 +118,14 @@
 						</div>
 					</section>
 					<!-- 3D Model Viewer -->
-					<div id="viewer" style="width: 100%; height: 500px;"></div>
+					<section id="model-viewer" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0; margin: 0;">
+						<div class="container">
+							<header class="major" style="margin-bottom: 1em;">
+							<h2 style="margin: 0;">3D Interactive Hand Model</h2>
+							</header>
+							<div id="viewer" style="width: 100%; height: 500px;"></div>
+						</div>
+						</section>
 
 					<script>
 						const scene = new THREE.Scene();
@@ -202,7 +209,7 @@
 				</div>
 			</section>	
 		<!-- Scripts -->
-		 <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
-		 <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/loaders/GLTFLoader.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/loaders/GLTFLoader.js"></script>
 	</body>
 </html>
