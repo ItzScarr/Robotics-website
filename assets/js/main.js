@@ -3,7 +3,47 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
+import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/loaders/GLTFLoader.js';
 
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, 500);
+document.getElementById("viewer").appendChild(renderer.domElement);
+
+const light = new THREE.HemisphereLight(0xffffff, 0x444444);
+light.position.set(0, 20, 0);
+scene.add(light);
+
+const loader = new GLTFLoader();
+loader.load(
+  'hand_model.glb',
+  function (gltf) {
+    scene.add(gltf.scene);
+    gltf.scene.rotation.y = Math.PI; // Optional rotation
+  },
+  undefined,
+  function (error) {
+    console.error(error);
+  }
+);
+
+camera.position.z = 3;
+
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+}
+
+animate();
 (function($) {
 
 	var	$window = $(window),
