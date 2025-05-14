@@ -25,7 +25,7 @@ scene.add(light);
 
 const loader = new GLTFLoader();
 loader.load(
-  'hand_model.glb',
+  'ItzScarr/Robotics-website/hand_model.glb',
   function (gltf) {
     scene.add(gltf.scene);
     gltf.scene.rotation.y = Math.PI; // Optional rotation
