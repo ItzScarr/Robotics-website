@@ -139,7 +139,7 @@
               scene.add(light);
 
               const loader = new THREE.GLTFLoader();
-              loader.load('Hand.glb', function (gltf) {
+              loader.load('Hand.GLB', function (gltf) {
                 scene.add(gltf.scene);
                 gltf.scene.rotation.y = Math.PI; // Optional: rotate model
               }, undefined, function (error) {
