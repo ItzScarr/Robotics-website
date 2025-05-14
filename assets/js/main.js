@@ -26,7 +26,7 @@ scene.add(light);
 
 const loader = new GLTFLoader();
 loader.load(
-  'assets/models/hand_model.glb', // Make sure this is in the correct location
+  '/Robotics-website/assets/models/hand_model.glb', // Make sure this is in the correct location
   function (gltf) {
     scene.add(gltf.scene);
     gltf.scene.rotation.y = Math.PI;
