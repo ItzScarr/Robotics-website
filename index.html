@@ -19,8 +19,6 @@
 	</head>
 	<body class="homepage is-preload">
 		<div id="page-wrapper">
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/loaders/GLTFLoader.js"></script>
         <!-- Header -->
           <section id="header">
 
@@ -128,33 +126,51 @@
               </div>
               </section>
 
-  <script>
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, 500);
-    document.getElementById("viewer").appendChild(renderer.domElement);
+<!-- Load Three.js and GLTFLoader -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/loaders/GLTFLoader.js"></script>
 
-    const light = new THREE.HemisphereLight(0xffffff, 0x444444);
-    light.position.set(0, 20, 0);
-    scene.add(light);
+<!-- 3D Viewer Script -->
+<script>
+  const scene = new THREE.Scene();
 
-    const loader = new THREE.GLTFLoader();
-    loader.load('Hand.glb', function (gltf) {
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+  );
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(window.innerWidth, 500);
+  document.getElementById("viewer").appendChild(renderer.domElement);
+
+  const light = new THREE.HemisphereLight(0xffffff, 0x444444);
+  light.position.set(0, 20, 0);
+  scene.add(light);
+
+  const loader = new THREE.GLTFLoader();
+  loader.load(
+    'hand_model.glb',
+    function (gltf) {
       scene.add(gltf.scene);
-      gltf.scene.rotation.y = Math.PI; // Optional: rotate model
-    }, undefined, function (error) {
+      gltf.scene.rotation.y = Math.PI; // Optional rotation
+    },
+    undefined,
+    function (error) {
       console.error(error);
-    });
-
-    camera.position.z = 3;
-
-    function animate() {
-      requestAnimationFrame(animate);
-      renderer.render(scene, camera);
     }
-    animate();
-  </script>
+  );
+
+  camera.position.z = 3;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+  }
+
+  animate();
+</script>
             <section id="haptic" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0; position: relative; margin: 0;">
               <div class="container">
                 <header class="major" style="margin-bottom: 1em;">
