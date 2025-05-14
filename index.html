@@ -137,7 +137,7 @@
       controls.enableDamping = true;
 
       const loader = new THREE.GLTFLoader();
-      loader.load('HandWJoint.glb', function (gltf) {
+      loader.load('HandWJoint.GLB', function (gltf) {
         scene.add(gltf.scene);
         gltf.scene.rotation.y = Math.PI;
       }, undefined, function (error) {
