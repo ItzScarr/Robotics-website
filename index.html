@@ -9,6 +9,10 @@
     html {
       scroll-behavior: smooth;
     }
+    #viewer {
+      width: 100%;
+      height: 600px;
+    }
   </style>
 </head>
 <body class="homepage is-preload">
@@ -16,10 +20,7 @@
 
     <!-- Header -->
     <section id="header">
-      <!-- Logo -->
       <h1><a href="index.html">Robotic hand model</a></h1>
-
-      <!-- Nav -->
       <nav id="nav">
         <ul>
           <li class="current"><a href="index.html">Home</a></li>
@@ -41,7 +42,6 @@
         </ul>
       </nav>
 
-      <!-- Banner -->
       <section id="banner">
         <header>
           <h2>This website will go into detail about how the robotic hand was made and why</h2>
@@ -50,8 +50,8 @@
       </section>
     </section>
 
-    <!-- Sections -->
-    <section id="intro" style="background: #f7f7f7 url('images/bg02.png'); padding: 4em 0 2em 0; position: relative; margin: 0;">
+    <!-- Introduction -->
+    <section id="intro">
       <div class="container">
         <header class="major">
           <h2>Introduction</h2>
@@ -60,7 +60,8 @@
       </div>
     </section>
 
-    <section id="production" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0; position: relative; margin: 0;">
+    <!-- Production -->
+    <section id="production">
       <div class="container">
         <header class="major">
           <h2>Production Phase</h2>
@@ -69,7 +70,8 @@
       </div>
     </section>
 
-    <section id="scanning" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0;">
+    <!-- Scanning -->
+    <section id="scanning">
       <div class="container">
         <header class="major">
           <h2>3D Scanning Hardware, Software, and Workshop Facilities</h2>
@@ -78,7 +80,8 @@
       </div>
     </section>
 
-    <section id="motion-capture" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0;">
+    <!-- Motion Capture -->
+    <section id="motion-capture">
       <div class="container">
         <header class="major">
           <h2>Motion Capture Hardware, Software, and Stage Facilities</h2>
@@ -87,7 +90,8 @@
       </div>
     </section>
 
-    <section id="cad" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0;">
+    <!-- CAD -->
+    <section id="cad">
       <div class="container">
         <header class="major">
           <h2>Computer Aided Design (CAD) Software Package Facilities</h2>
@@ -96,7 +100,8 @@
       </div>
     </section>
 
-    <section id="modelling" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0;">
+    <!-- Modelling -->
+    <section id="modelling">
       <div class="container">
         <header class="major">
           <h2>3D Modelling Software Facilities</h2>
@@ -105,70 +110,18 @@
       </div>
     </section>
 
-			<!-- 3D Model Viewer Section -->
-			<section id="model-viewer" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0;">
-			<div class="container">
-				<header class="major">
-				<h2>3D Interactive Hand Model</h2>
-				</header>
-				<div id="viewer" style="width: 100%; height: 500px;"></div>
-			</div>
-			</section>
+    <!-- 3D Model Viewer Section -->
+    <section id="hand-model">
+      <div class="container">
+        <header class="major">
+          <h2>Interactive 3D Hand Model</h2>
+        </header>
+        <div id="viewer"></div>
+      </div>
+    </section>
 
-		<!-- 3D MODEL VIEWER: Robotic Hand -->
-
-		<h2>3D Model Viewer</h2>
-		<p>Below is an interactive 3D model of the robotic hand with a working joint. You can click and drag to explore the model in 3D.</p>
-
-		<div id="viewer" style="width: 100%; height: 600px;"></div>
-
-		<!-- Include Three.js and related libraries -->
-		<script>
-		// Set up basic Three.js scene
-		const scene = new THREE.Scene();
-		const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-		const renderer = new THREE.WebGLRenderer({ antialias: true });
-		renderer.setSize(window.innerWidth, 600);
-		document.getElementById("viewer").appendChild(renderer.domElement);
-
-		// Lighting
-		const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-		scene.add(ambientLight);
-
-		// Load the .glb model
-		const loader = new THREE.GLTFLoader();
-		loader.load('assets/HandWJoint.glb', function(gltf) {
-			const model = gltf.scene;
-			model.scale.set(1, 1, 1);
-			model.position.set(0, -0.5, 0);
-			scene.add(model);
-		}, undefined, function(error) {
-			console.error('Error loading model:', error);
-		});
-
-		// Camera & Controls
-		camera.position.z = 2;
-		const controls = new THREE.OrbitControls(camera, renderer.domElement);
-		controls.enableDamping = true;
-
-		// Animate
-		function animate() {
-			requestAnimationFrame(animate);
-			controls.update();
-			renderer.render(scene, camera);
-		}
-		animate();
-
-		// Handle resizing
-		window.addEventListener('resize', () => {
-			camera.aspect = window.innerWidth / 600;
-			camera.updateProjectionMatrix();
-			renderer.setSize(window.innerWidth, 600);
-		});
-		</script>
-
-    <!-- Remaining Sections -->
-    <section id="haptic" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0;">
+    <!-- Haptic -->
+    <section id="haptic">
       <div class="container">
         <header class="major">
           <h2>Haptic Input Hardware and 3D Sculpting Software</h2>
@@ -177,7 +130,8 @@
       </div>
     </section>
 
-    <section id="printing" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0;">
+    <!-- Printing -->
+    <section id="printing">
       <div class="container">
         <header class="major">
           <h2>3D Printing Hardware and Workshop Facilities</h2>
@@ -186,7 +140,8 @@
       </div>
     </section>
 
-    <section id="laser" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0;">
+    <!-- Laser -->
+    <section id="laser">
       <div class="container">
         <header class="major">
           <h2>Laser Cutting Hardware and Workshop Facilities</h2>
@@ -195,7 +150,8 @@
       </div>
     </section>
 
-    <section id="resin" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0;">
+    <!-- Resin -->
+    <section id="resin">
       <div class="container">
         <header class="major">
           <h2>Resin Production, Postproduction, and Composite Workshop Facilities</h2>
@@ -204,13 +160,13 @@
       </div>
     </section>
 
-    <!-- Footer / References -->
-    <section id="references" style="background: #f7f7f7 url('images/bg02.png'); padding: 4em 0;">
+    <!-- References -->
+    <section id="references">
       <div class="container">
         <header class="major">
           <h2>References</h2>
         </header>
-        <ul style="margin: 0; padding-left: 1.2em; list-style-type: disc;">
+        <ul>
           <li>Smith, J. (2020). <em>Designing Robotic Hands</em>. Robotics Press.</li>
           <li>Brown, L. (2019). "3D Printing in Prosthetics." <em>Journal of Biomedical Engineering</em>, 15(3), 45–52.</li>
           <li>AutoDesk. (2021). <em>Fusion 360 CAD Documentation</em>. Retrieved from <a href="https://www.autodesk.com">autodesk.com</a></li>
@@ -218,10 +174,52 @@
         </ul>
       </div>
     </section>
-
   </div>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/loaders/GLTFLoader.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/controls/OrbitControls.js"></script>  
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/controls/OrbitControls.js"></script>
+
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / 600, 0.1, 1000);
+    camera.position.set(0, 1, 3);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, 600);
+    document.getElementById("viewer").appendChild(renderer.domElement);
+
+    const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
+    light.position.set(0, 20, 0);
+    scene.add(light);
+
+    const loader = new THREE.GLTFLoader();
+    loader.load('assets/HandWJoint.glb', function (gltf) {
+      gltf.scene.scale.set(1, 1, 1);
+      gltf.scene.position.set(0, -0.5, 0);
+      gltf.scene.rotation.y = Math.PI;
+      scene.add(gltf.scene);
+    }, undefined, function (error) {
+      console.error('Error loading model:', error);
+    });
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / 600;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, 600);
+    });
+  </script>
 </body>
 </html>
+
