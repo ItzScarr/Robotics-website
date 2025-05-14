@@ -105,82 +105,71 @@
       </div>
     </section>
 
-    <!-- 3D Model Viewer Section -->
-    <section id="model-viewer" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0;">
-      <div class="container">
-        <header class="major">
-          <h2>3D Interactive Hand Model</h2>
-        </header>
-        <div id="viewer" style="width: 100%; height: 500px;"></div>
-      </div>
-    </section>
+			<!-- 3D Model Viewer Section -->
+			<section id="model-viewer" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0;">
+			<div class="container">
+				<header class="major">
+				<h2>3D Interactive Hand Model</h2>
+				</header>
+				<div id="viewer" style="width: 100%; height: 500px;"></div>
+			</div>
+			</section>
 
-        <!-- 3D Model Viewer Section -->
-        <section id="model-viewer" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0;">
-            <div class="container">
-                <header class="major">
-                    <h2>3D Interactive Hand Model</h2>
-                </header>
-                <div id="viewer"></div>
-            </div>
-        </section>
+		<!-- 3D MODEL VIEWER: Robotic Hand -->
 
-        <!-- Three.js + GLTFLoader + OrbitControls -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/controls/OrbitControls.js"></script>
+		<h2>3D Model Viewer</h2>
+		<p>Below is an interactive 3D model of the robotic hand with a working joint. You can click and drag to explore the model in 3D.</p>
 
-         <script>
-        // JavaScript for rendering the 3D model
+		<div id="viewer" style="width: 100%; height: 600px;"></div>
 
-        // Create the scene
-        const scene = new THREE.Scene();
+		<!-- Include Three.js and related libraries -->
+	<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/loaders/GLTFLoader.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/controls/OrbitControls.js"></script>
 
-        // Create the camera
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 1, 3); // Adjust camera position
+		<script>
+		// Set up basic Three.js scene
+		const scene = new THREE.Scene();
+		const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+		const renderer = new THREE.WebGLRenderer({ antialias: true });
+		renderer.setSize(window.innerWidth, 600);
+		document.getElementById("viewer").appendChild(renderer.domElement);
 
-        // Create the renderer
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('viewer').appendChild(renderer.domElement); // Append renderer to the viewer div
+		// Lighting
+		const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+		scene.add(ambientLight);
 
-        // Add lighting to the scene
-        const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1); // Ambient light
-        light.position.set(0, 20, 0);
-        scene.add(light);
+		// Load the .glb model
+		const loader = new THREE.GLTFLoader();
+		loader.load('assets/HandWJoint.glb', function(gltf) {
+			const model = gltf.scene;
+			model.scale.set(1, 1, 1);
+			model.position.set(0, -0.5, 0);
+			scene.add(model);
+		}, undefined, function(error) {
+			console.error('Error loading model:', error);
+		});
 
-        // Load the GLB model using GLTFLoader
-        const loader = new THREE.GLTFLoader();
-        loader.load('HandWJoint.glb', function (gltf) {
-            scene.add(gltf.scene); // Add the loaded model to the scene
-            gltf.scene.rotation.y = Math.PI; // Optional: Rotate the model to view better
-        }, undefined, function (error) {
-            console.error('Error loading model:', error);
-        });
+		// Camera & Controls
+		camera.position.z = 2;
+		const controls = new THREE.OrbitControls(camera, renderer.domElement);
+		controls.enableDamping = true;
 
-        // Initialize OrbitControls to allow camera interaction (rotation, zoom, pan)
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.25;
-        controls.screenSpacePanning = false;
-        controls.maxPolarAngle = Math.PI / 2;
+		// Animate
+		function animate() {
+			requestAnimationFrame(animate);
+			controls.update();
+			renderer.render(scene, camera);
+		}
+		animate();
 
-        // Animation loop
-        function animate() {
-            requestAnimationFrame(animate);
-            controls.update(); // Update controls
-            renderer.render(scene, camera); // Render the scene
-        }
-        animate();
-
-        // Resize handling for responsive layout
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
+		// Handle resizing
+		window.addEventListener('resize', () => {
+			camera.aspect = window.innerWidth / 600;
+			camera.updateProjectionMatrix();
+			renderer.setSize(window.innerWidth, 600);
+		});
+		</script>
 
     <!-- Remaining Sections -->
     <section id="haptic" style="background: #f7f7f7 url('images/bg02.png'); padding: 2em 0 4em 0;">
