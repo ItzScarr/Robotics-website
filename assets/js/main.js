@@ -6,46 +6,65 @@
 // main.js (in assets folder)
 console.log('Three.js and GLTFLoader loaded successfully');
 console.log('main.js loaded');
+
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/controls/OrbitControls.js';
+
 const scene = new THREE.Scene();
+
+const container = document.getElementById('viewer');
 
 const camera = new THREE.PerspectiveCamera(
   75,
-  window.innerWidth / 500,
+  container.clientWidth / container.clientHeight,
   0.1,
   1000
 );
 
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, 500);
-document.getElementById("viewer").appendChild(renderer.domElement);
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(container.clientWidth, container.clientHeight);
+container.appendChild(renderer.domElement);
 
-const light = new THREE.HemisphereLight(0xffffff, 0x444444);
-light.position.set(0, 20, 0);
-scene.add(light);
+// Lights
+const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
+hemiLight.position.set(0, 20, 0);
+scene.add(hemiLight);
 
+const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+dirLight.position.set(5, 10, 7);
+scene.add(dirLight);
+
+// Load 3D model
 const loader = new GLTFLoader();
 loader.load(
-  '/Robotics-website/assets/models/hand_model.glb', // Make sure this is in the correct location
+  './assets/models/hand_model.glb', // Adjust path if needed
   function (gltf) {
     scene.add(gltf.scene);
-    gltf.scene.rotation.y = Math.PI;
+    gltf.scene.rotation.y = Math.PI; // rotate if needed
   },
   undefined,
   function (error) {
-    console.error(error);
+    console.error('Error loading model:', error);
   }
 );
 
 camera.position.z = 3;
 
+// Orbit controls
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+
+// Animation loop
 function animate() {
   requestAnimationFrame(animate);
+  controls.update();
   renderer.render(scene, camera);
 }
-
 animate();
+
+// Responsive resize
 window.addEventListener('resize', () => {
   const width = container.clientWidth;
   const height = container.clientHeight;
