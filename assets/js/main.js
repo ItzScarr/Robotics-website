@@ -7,9 +7,12 @@
 console.log('Three.js and GLTFLoader loaded successfully');
 console.log('main.js loaded');
 
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
-import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/controls/OrbitControls.js';
+import * as THREE from './three.module.js';
+import { GLTFLoader } from './GLTFLoader.js';
+import { OrbitControls } from './OrbitControls.js';
+
+console.log('Three.js and GLTFLoader loaded successfully');
+console.log('main.js loaded');
 
 const scene = new THREE.Scene();
 
