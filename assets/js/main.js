@@ -7,7 +7,7 @@
 console.log('Three.js and GLTFLoader loaded successfully');
 console.log('main.js loaded');
 
-import * as THREE from "../assets/js/three.module.js"
+import * as THREE from "../js/three.module.js"
 import { GLTFLoader } from './GLTFLoader.js';
 import { OrbitControls } from './OrbitControls.js';
 
