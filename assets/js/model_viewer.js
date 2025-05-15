@@ -1,39 +1,35 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js';
-import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.152.2/examples/jsm/loaders/GLTFLoader.js';
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-    const viewer = document.getElementById('viewer');
+// Set up scene
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xf0f0f0);
 
-    if (!viewer) {
-        console.error('Viewer element not found!');
-        return;
-    }
+// Camera
+const camera = new THREE.PerspectiveCamera(75, viewer.clientWidth / viewer.clientHeight, 0.1, 1000);
+camera.position.z = 2;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, viewer.offsetWidth / viewer.offsetHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+// Renderer
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(viewer.clientWidth, viewer.clientHeight);
+document.getElementById('viewer').appendChild(renderer.domElement);
 
-    renderer.setSize(viewer.offsetWidth, viewer.offsetHeight);
-    viewer.appendChild(renderer.domElement);
+// Light
+const light = new THREE.HemisphereLight(0xffffff, 0x444444);
+light.position.set(1, 1, 1);
+scene.add(light);
 
-    // Lighting
-    const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
-    scene.add(light);
-
-    // Load the GLB model
-    const loader = new GLTFLoader();
-    loader.load('assets/models/hand_model.glb', function (gltf) {
-        scene.add(gltf.scene);
-    }, undefined, function (error) {
-        console.error(error);
-    });
-
-    camera.position.z = 2;
-
-    function animate() {
-        requestAnimationFrame(animate);
-        renderer.render(scene, camera);
-    }
-
-    animate();
+// Load model
+const loader = new GLTFLoader();
+loader.load('assets/models/hand_model.glb', function (gltf) {
+  scene.add(gltf.scene);
+}, undefined, function (error) {
+  console.error('Error loading model:', error);
 });
+
+// Animate
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+}
+animate();
