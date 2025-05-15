@@ -1,6 +1,8 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
 
+const viewer = document.getElementById('viewer'); // ✅ Define viewer first
+
 // Set up scene
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xf0f0f0);
@@ -12,7 +14,7 @@ camera.position.z = 2;
 // Renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(viewer.clientWidth, viewer.clientHeight);
-document.getElementById('viewer').appendChild(renderer.domElement);
+viewer.appendChild(renderer.domElement);
 
 // Light
 const light = new THREE.HemisphereLight(0xffffff, 0x444444);
