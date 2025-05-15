@@ -41,7 +41,7 @@ scene.add(dirLight);
 // Load 3D model
 const loader = new GLTFLoader();
 loader.load(
-  'assets/models/hand_model.glb', // Adjust path if needed
+  './models/hand_model.glb', // Adjust path if needed
   function (gltf) {
     scene.add(gltf.scene);
     gltf.scene.rotation.y = Math.PI; // rotate if needed
